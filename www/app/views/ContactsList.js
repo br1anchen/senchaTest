@@ -8,6 +8,8 @@ app.views.ContactsList = Ext.extend(Ext.Panel, {
         xtype: 'list',
         store: app.stores.contacts,
         itemTpl: '{givenName} {familyName}',
+        grouped: true,
+        indexBar: true,
         onItemDisclosure: function (record) {
             Ext.dispatch({
                 controller: app.controllers.contacts,

@@ -11,6 +11,7 @@ Ext.data.ProxyMgr.registerType("contactstorage",
                     var contacts = [];
                     for (var i = 0; i < deviceContacts.length; i++) {
                         var deviceContact = deviceContacts[ i ];
+                        if (!deviceContact || !deviceContact.name || !deviceContact.name.familyName || !deviceContact.name.givenName){continue;}
                         var contact = new thisProxy.model({
                             id: deviceContact.id,
                             givenName: deviceContact.name.givenName,
@@ -77,5 +78,9 @@ app.models.Contact = Ext.regModel("app.models.Contact", {
 });
 
 app.stores.contacts = new Ext.data.Store({
-    model: "app.models.Contact"
+    model: "app.models.Contact",
+    sorters: 'familyName',
+    getGroupString : function(record) {
+        return record.get('familyName')[0];
+    }
 });
